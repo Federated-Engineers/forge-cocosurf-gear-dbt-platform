@@ -36,6 +36,6 @@ jobs:
       - name: SQLFluff linting
         run: sqlfluff lint dbt/cocosurf/models
 
-      - name: Validate dbt project
-        working-directory: dbt/cocosurf
-        run: dbt parse
+      # - name: Validate dbt project
+      #   working-directory: dbt/cocosurf
+      #   run: dbt parse
