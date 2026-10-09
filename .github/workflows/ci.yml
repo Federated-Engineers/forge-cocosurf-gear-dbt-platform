@@ -38,4 +38,4 @@ jobs:
 
       - name: Validate dbt project
         working-directory: dbt/cocosurf
-        run: dbt parse
+        run: dbt parse --no-partial-parse --profiles-dir .
