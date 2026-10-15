@@ -42,11 +42,11 @@ resource "aws_ecs_task_definition" "cocosurf_dbt" {
       secrets = [
         {
           name      = "SNOWFLAKE_USER"
-          valueFrom = var.snowflake_credentials_parameter_arns[0]
+          valueFrom = aws_ssm_parameter.snowflake_dbt_user.arn
         },
         {
           name      = "SNOWFLAKE_PASSWORD"
-          valueFrom = var.snowflake_credentials_parameter_arns[1]
+          valueFrom = aws_ssm_parameter.snowflake_dbt_user_password.arn
         }
       ]
 
