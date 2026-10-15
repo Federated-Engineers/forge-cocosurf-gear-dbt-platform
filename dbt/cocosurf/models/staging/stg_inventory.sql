@@ -5,5 +5,5 @@ select
     f.value:quantity_on_hand::number as quantity_on_hand,
     f.value:quantity_reserved::number as quantity_reserved,
     f.value:last_restock_date::timestamp as last_restock_date
-from {{ source('raw', 'inventory') }},
-lateral flatten(input => raw) f
+from {{ source('raw', 'inventory') }} as src,
+    lateral flatten(input => raw) as f

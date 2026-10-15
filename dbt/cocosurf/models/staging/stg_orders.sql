@@ -6,4 +6,4 @@ select
     f.value:order_total::number as order_total,
     f.value:placed_at::timestamp as placed_at
 from {{ source('raw', 'orders') }},
-lateral flatten(input => raw) f
+    lateral flatten(input => raw) as f

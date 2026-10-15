@@ -7,4 +7,4 @@ select
     f.value:default_shipping_address_id::string as default_shipping_address_id,
     f.value:created_at::timestamp as created_at
 from {{ source('raw', 'customers') }},
-lateral flatten(input => raw) f
+    lateral flatten(input => raw) as f

@@ -6,4 +6,4 @@ select
     f.value:unit_price_sold::number as unit_price_sold,
     f.value:discount_amount::number as discount_amount
 from {{ source('raw', 'order_items') }},
-lateral flatten(input => raw) f
+    lateral flatten(input => raw) as f

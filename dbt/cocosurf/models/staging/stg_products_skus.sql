@@ -6,4 +6,4 @@ select
     f.value:weight_grams::number as weight_grams,
     f.value:is_active::boolean as is_active
 from {{ source('raw', 'products_skus') }},
-lateral flatten(input => raw) f
+    lateral flatten(input => raw) as f
