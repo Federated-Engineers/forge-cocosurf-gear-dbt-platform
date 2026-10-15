@@ -28,4 +28,10 @@ provider "snowflake" {
   user              = var.snowflake_user
   password          = var.snowflake_password
   role              = "SYSADMIN"
+
+  preview_features_enabled = [
+    "snowflake_external_table_resource",
+    "snowflake_table_resource"
+  ]
+
 }

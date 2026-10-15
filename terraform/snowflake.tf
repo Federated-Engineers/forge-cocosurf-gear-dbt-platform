@@ -35,6 +35,24 @@ resource "snowflake_account_role" "analytics_role" {
   name     = "ANALYTICS_ROLE"
 }
 
+resource "snowflake_legacy_service_user" "cocosurf_dbt_svc" {
+  provider = snowflake.accountadmin
+
+  name                           = "COCOSURF_DBT_SVC"
+  password                       = var.snowflake_dbt_password
+  default_role                   = snowflake_account_role.dbt_role.name
+  default_warehouse              = snowflake_warehouse.cocosurf_wh.name
+  default_namespace              = "${snowflake_database.cocosurf_db.name}.STAGING"
+  default_secondary_roles_option = "NONE"
+}
+
+resource "snowflake_grant_account_role" "dbt_role_to_cocosurf_dbt_svc" {
+  provider = snowflake.accountadmin
+
+  role_name = snowflake_account_role.dbt_role.name
+  user_name = snowflake_legacy_service_user.cocosurf_dbt_svc.name
+}
+
 resource "snowflake_grant_account_role" "dbt_to_sysadmin" {
   role_name        = snowflake_account_role.dbt_role.name
   parent_role_name = "SYSADMIN"
@@ -282,6 +300,7 @@ resource "snowflake_grant_privileges_to_account_role" "analytics_future_tables" 
     }
   }
 }
+
 resource "snowflake_grant_privileges_to_account_role" "analytics_select_views" {
   privileges        = ["SELECT"]
   account_role_name = snowflake_account_role.analytics_role.name
@@ -304,4 +323,12 @@ resource "snowflake_grant_privileges_to_account_role" "analytics_future_views" {
       in_schema          = snowflake_schema.analytics.fully_qualified_name
     }
   }
+}
+
+resource "snowflake_grant_privileges_to_account_role" "sysadmin_create_integration" {
+  provider          = snowflake.accountadmin
+  privileges        = ["CREATE INTEGRATION"]
+  account_role_name = "SYSADMIN"
+
+  on_account = true
 }
