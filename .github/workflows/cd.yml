@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - cocosurf
     paths:
       - "dbt/**"
       - "Dockerfile"
