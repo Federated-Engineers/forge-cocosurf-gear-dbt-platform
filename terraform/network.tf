@@ -1,53 +1,29 @@
-resource "aws_vpc" "cocosurf" {
-  cidr_block           = "10.20.0.0/16"
-  enable_dns_support   = true
-  enable_dns_hostnames = true
-
-  tags = {
-    Name = "cocosurf-vpc"
-  }
+data "aws_vpc" "secure_production" {
+  id = "vpc-09a5fdb174ed7c060"
 }
 
-resource "aws_subnet" "cocosurf_public" {
-  vpc_id                  = aws_vpc.cocosurf.id
-  cidr_block              = "10.20.1.0/24"
-  availability_zone       = "eu-central-1a"
-  map_public_ip_on_launch = true
-
-  tags = {
-    Name = "cocosurf-public-subnet"
-  }
+data "aws_subnet" "secure_production_public_a" {
+  id = "subnet-0613b8ccd258f4cca"
 }
 
-resource "aws_internet_gateway" "cocosurf" {
-  vpc_id = aws_vpc.cocosurf.id
-
-  tags = {
-    Name = "cocosurf-igw"
-  }
-}
-
-resource "aws_route" "cocosurf_internet" {
-  route_table_id         = aws_vpc.cocosurf.main_route_table_id
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.cocosurf.id
+data "aws_subnet" "secure_production_public_b" {
+  id = "subnet-0af2d376a426b58bb"
 }
 
 resource "aws_security_group" "cocosurf_ecs" {
   name        = "cocosurf-ecs-sg"
   description = "Security group for Cocosurf ECS Fargate tasks"
-  vpc_id      = aws_vpc.cocosurf.id
-
-  # No inbound rules are required for the dbt task.
+  vpc_id      = data.aws_vpc.secure_production.id
 
   tags = {
-    Name = "cocosurf-ecs-sg"
+    Name    = "cocosurf-ecs-sg"
+    Project = "Cocosurf"
   }
 }
 
 resource "aws_vpc_security_group_egress_rule" "cocosurf_https" {
   security_group_id = aws_security_group.cocosurf_ecs.id
-  description       = "Allow HTTPS connections to Snowflake and AWS services"
+  description       = "Allow outbound HTTPS connections"
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "tcp"
   from_port         = 443
@@ -55,16 +31,21 @@ resource "aws_vpc_security_group_egress_rule" "cocosurf_https" {
 }
 
 output "cocosurf_vpc_id" {
-  description = "VPC hosting Cocosurf ECS Fargate tasks"
-  value       = aws_vpc.cocosurf.id
+  description = "Existing secure-production company VPC"
+  value       = data.aws_vpc.secure_production.id
 }
 
-output "cocosurf_public_subnet_id" {
-  description = "Public subnet for Cocosurf ECS Fargate tasks"
-  value       = aws_subnet.cocosurf_public.id
+output "cocosurf_public_subnet_a_id" {
+  description = "Secure-production-public-a subnet ID"
+  value       = data.aws_subnet.secure_production_public_a.id
+}
+
+output "cocosurf_public_subnet_b_id" {
+  description = "Secure-production-public-b subnet ID"
+  value       = data.aws_subnet.secure_production_public_b.id
 }
 
 output "cocosurf_ecs_security_group_id" {
-  description = "Security group for Cocosurf ECS Fargate tasks"
+  description = "Dedicated security group for Cocosurf ECS tasks"
   value       = aws_security_group.cocosurf_ecs.id
 }
