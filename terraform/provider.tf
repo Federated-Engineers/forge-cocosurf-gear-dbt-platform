@@ -13,8 +13,8 @@ terraform {
 # Used only for account-level role creation
 provider "snowflake" {
   alias             = "accountadmin"
-  account_name      = var.snowflake_account
-  organization_name = var.snowflake_organization
+  account_name      = var.snowflake_account_name
+  organization_name = var.snowflake_organization_name
   user              = var.snowflake_user
   password          = var.snowflake_password
   role              = "ACCOUNTADMIN"
@@ -23,8 +23,8 @@ provider "snowflake" {
 # SYSADMIN provider
 # Used for the Cocosurf data environment
 provider "snowflake" {
-  account_name      = var.snowflake_account
-  organization_name = var.snowflake_organization
+  account_name      = var.snowflake_account_name
+  organization_name = var.snowflake_organization_name
   user              = var.snowflake_user
   password          = var.snowflake_password
   role              = "SYSADMIN"

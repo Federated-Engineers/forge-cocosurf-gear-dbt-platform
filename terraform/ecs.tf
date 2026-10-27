@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "cocosurf_dbt" {
       essential = true
 
       environment = [
-        { name = "SNOWFLAKE_ACCOUNT", value = var.snowflake_account },
+        { name = "SNOWFLAKE_ACCOUNT", value = var.snowflake_account_name },
         { name = "SNOWFLAKE_ROLE", value = "DBT_ROLE" },
         { name = "SNOWFLAKE_DATABASE", value = "COCOSURF_DB" },
         { name = "SNOWFLAKE_WAREHOUSE", value = "COCOSURF_WH" },

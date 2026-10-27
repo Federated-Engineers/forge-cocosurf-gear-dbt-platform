@@ -1,4 +1,4 @@
-variable "snowflake_account" {
+variable "snowflake_account_name" {
   type      = string
   sensitive = true
 }
@@ -12,7 +12,7 @@ variable "snowflake_password" {
   sensitive = true
 }
 
-variable "snowflake_organization" {
+variable "snowflake_organization_name" {
   type = string
 }
 
