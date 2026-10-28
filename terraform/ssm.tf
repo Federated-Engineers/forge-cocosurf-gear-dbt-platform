@@ -2,14 +2,14 @@ resource "aws_ssm_parameter" "snowflake_org_name" {
   name        = "/production/cocosurf/snowflake/organization"
   description = "Snowflake organization name for Cocosurf"
   type        = "String"
-  value       = var.snowflake_organization_name
+  value       = "MQNSOWA"
 }
 
 resource "aws_ssm_parameter" "snowflake_account_name" {
   name        = "/production/cocosurf/snowflake/account"
   description = "Snowflake account identifier for Cocosurf"
   type        = "String"
-  value       = var.snowflake_account_name
+  value       = "RX82601"
 }
 
 resource "aws_ssm_parameter" "snowflake_dbt_user" {
@@ -31,6 +31,6 @@ resource "aws_ssm_parameter" "snowflake_dbt_user_password" {
   description = "Password for the COCOSURF_DBT_SVC Snowflake service user"
   type        = "SecureString"
 
-  value_wo         = var.snowflake_dbt_password
+  value_wo         = var.snowflake_password
   value_wo_version = 1
 }

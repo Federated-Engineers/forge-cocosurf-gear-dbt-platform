@@ -11,23 +11,32 @@ terraform {
 
 # ACCOUNTADMIN provider
 # Used only for account-level role creation
-provider "snowflake" {
-  alias             = "accountadmin"
-  account_name      = var.snowflake_account_name
-  organization_name = var.snowflake_organization_name
-  user              = var.snowflake_user
-  password          = var.snowflake_password
-  role              = "ACCOUNTADMIN"
-}
+# provider "snowflake" {
+#   alias             = "accountadmin"
+#   account_name      = var.snowflake_account_name
+#   organization_name = var.snowflake_organization_name
+#   user              = var.snowflake_user
+#   password          = var.snowflake_password
+#   role              = "ACCOUNTADMIN"
+# }
 
-# SYSADMIN provider
-# Used for the Cocosurf data environment
-provider "snowflake" {
-  account_name      = var.snowflake_account_name
-  organization_name = var.snowflake_organization_name
-  user              = var.snowflake_user
-  password          = var.snowflake_password
-  role              = "SYSADMIN"
+# # SYSADMIN provider
+# # Used for the Cocosurf data environment
+# provider "snowflake" {
+#   account_name      = var.snowflake_account_name
+#   organization_name = var.snowflake_organization_name
+#   user              = var.snowflake_user
+#   password          = var.snowflake_password
+#   role              = "SYSADMIN"
+
+
+
+  provider "snowflake" {
+    alias = "accountadmin"
+    role = "ACCOUNTADMIN"
+  }
+  provider "snowflake" {
+    role = "SYSADMIN"
 
   preview_features_enabled = [
     "snowflake_external_table_resource",
