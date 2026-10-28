@@ -9,7 +9,7 @@ terraform {
   required_version = ">= 1.6.0"
 }
 
-# ACCOUNTADMIN provider
+# ACCOUNTADMIN provider and role
 # Used only for account-level role creation
 provider "snowflake" {
   alias             = "accountadmin"
