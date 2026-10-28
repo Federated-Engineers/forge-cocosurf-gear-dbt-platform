@@ -7,4 +7,3 @@ select
     default_shipping_address_id,
     created_at
 from {{ ref('stg_customers') }}
-
