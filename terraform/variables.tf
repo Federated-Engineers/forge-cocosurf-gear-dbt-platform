@@ -1,8 +1,4 @@
 variable "snowflake_account_name" {
-  type      = string
-  sensitive = true
-}
-variable "snowflake_account_name" {
   type    = string
   default = "RX82601"
 }
