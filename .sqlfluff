@@ -1,4 +1,0 @@
-[sqlfluff]
-dialect = snowflake
-max_line_length = 120
-exclude_rules = RF01,RF02,RF04,AL05
