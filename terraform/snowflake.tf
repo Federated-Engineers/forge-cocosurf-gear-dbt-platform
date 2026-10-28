@@ -39,7 +39,7 @@ resource "snowflake_legacy_service_user" "cocosurf_dbt_svc" {
   provider = snowflake.accountadmin
 
   name                           = "COCOSURF_DBT_SVC"
-  password                       = var.snowflake_dbt_password
+  password                       = var.snowflake_password
   default_role                   = snowflake_account_role.dbt_role.name
   default_warehouse              = snowflake_warehouse.cocosurf_wh.name
   default_namespace              = "${snowflake_database.cocosurf_db.name}.STAGING"

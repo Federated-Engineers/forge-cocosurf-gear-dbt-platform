@@ -2,9 +2,14 @@ variable "snowflake_account_name" {
   type      = string
   sensitive = true
 }
+variable "snowflake_account_name" {
+  type    = string
+  default = "RX82601"
+}
 
 variable "snowflake_user" {
-  type = string
+  type    = string
+  default = "feyiarmstrong"
 }
 
 variable "snowflake_password" {
@@ -13,11 +18,6 @@ variable "snowflake_password" {
 }
 
 variable "snowflake_organization_name" {
-  type = string
-}
-
-variable "snowflake_dbt_password" {
-  description = "Password for the COCOSURF_DBT_SVC Snowflake service user."
-  type        = string
-  sensitive   = true
+  type    = string
+  default = "MQNSOWA"
 }
