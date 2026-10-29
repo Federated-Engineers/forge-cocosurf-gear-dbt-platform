@@ -12,25 +12,27 @@ resource "aws_iam_role" "snowflake_s3" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
 
+    
+
     Statement = [
       {
         Effect = "Allow"
 
         Principal = {
-          AWS = "arn:aws:iam::515206815027:user/7sey1000-s"
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
         }
 
         Action = "sts:AssumeRole"
 
         Condition = {
           StringEquals = {
-            "sts:ExternalId" = "QI62360_SFCRole=5_MzVGSeU+5yHYrU6vWS2UcRLWCKg="
+            "sts:ExternalId" = "TEMPORARY-COCOSURF-BOOTSTRAP"
           }
         }
       }
     ]
-  })
-}
+     })
+   }
 
 resource "aws_iam_role_policy" "snowflake_s3_read" {
   name = "cocosurf-s3-read"
