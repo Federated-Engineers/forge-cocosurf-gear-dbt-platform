@@ -12,7 +12,7 @@ resource "aws_iam_role" "snowflake_s3" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
 
-    
+
 
     Statement = [
       {
@@ -31,8 +31,8 @@ resource "aws_iam_role" "snowflake_s3" {
         }
       }
     ]
-     })
-   }
+  })
+}
 
 resource "aws_iam_role_policy" "snowflake_s3_read" {
   name = "cocosurf-s3-read"
