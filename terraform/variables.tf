@@ -8,10 +8,10 @@ variable "snowflake_user" {
   default = "feyiarmstrong"
 }
 
-variable "snowflake_password" {
-  type      = string
-  sensitive = true
-}
+# variable "snowflake_password" {
+#   type      = string
+#   sensitive = true
+# }
 
 variable "snowflake_organization_name" {
   type    = string
