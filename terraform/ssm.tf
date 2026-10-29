@@ -2,14 +2,14 @@ resource "aws_ssm_parameter" "snowflake_org_name" {
   name        = "/production/cocosurf/snowflake/organization"
   description = "Snowflake organization name for Cocosurf"
   type        = "String"
-  value       = "MQNSOWA"
+  value       = "EWSTSAT"
 }
 
 resource "aws_ssm_parameter" "snowflake_account_name" {
   name        = "/production/cocosurf/snowflake/account"
   description = "Snowflake account identifier for Cocosurf"
   type        = "String"
-  value       = "RX82601"
+  value       = "DM09269"
 }
 
 resource "aws_ssm_parameter" "snowflake_dbt_user" {

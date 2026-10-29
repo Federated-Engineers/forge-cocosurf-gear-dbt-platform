@@ -1,11 +1,11 @@
 variable "snowflake_account_name" {
   type    = string
-  default = "RX82601"
+  default = "DM09269"
 }
 
 variable "snowflake_user" {
   type    = string
-  default = "feyiarmstrong"
+  default = "feyiarms"
 }
 
 # variable "snowflake_password" {
@@ -15,5 +15,5 @@ variable "snowflake_user" {
 
 variable "snowflake_organization_name" {
   type    = string
-  default = "MQNSOWA"
+  default = "EWSTSAT"
 }
