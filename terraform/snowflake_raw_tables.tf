@@ -1,6 +1,6 @@
 resource "snowflake_table" "orders" {
-  database = "COCOSURF_DB"
-  schema   = "RAW"
+  database = snowflake_database.cocosurf_db.name
+  schema   = snowflake_schema.raw.name
   name     = "ORDERS"
 
   column {
@@ -10,8 +10,8 @@ resource "snowflake_table" "orders" {
 }
 
 resource "snowflake_table" "customers" {
-  database = "COCOSURF_DB"
-  schema   = "RAW"
+  database = snowflake_database.cocosurf_db.name
+  schema   = snowflake_schema.raw.name
   name     = "CUSTOMERS"
 
   column {
@@ -21,8 +21,8 @@ resource "snowflake_table" "customers" {
 }
 
 resource "snowflake_table" "order_items" {
-  database = "COCOSURF_DB"
-  schema   = "RAW"
+  database = snowflake_database.cocosurf_db.name
+  schema   = snowflake_schema.raw.name
   name     = "ORDER_ITEMS"
 
   column {
@@ -32,8 +32,8 @@ resource "snowflake_table" "order_items" {
 }
 
 resource "snowflake_table" "inventory" {
-  database = "COCOSURF_DB"
-  schema   = "RAW"
+  database = snowflake_database.cocosurf_db.name
+  schema   = snowflake_schema.raw.name
   name     = "INVENTORY"
 
   column {
@@ -43,8 +43,8 @@ resource "snowflake_table" "inventory" {
 }
 
 resource "snowflake_table" "products_skus" {
-  database = "COCOSURF_DB"
-  schema   = "RAW"
+  database = snowflake_database.cocosurf_db.name
+  schema   = snowflake_schema.raw.name
   name     = "PRODUCTS_SKUS"
 
   column {
