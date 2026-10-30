@@ -9,10 +9,14 @@ resource "snowflake_storage_integration_aws" "cocosurf_s3" {
   ]
 
   storage_aws_role_arn = aws_iam_role.snowflake_s3.arn
+
+  depends_on = [
+    snowflake_grant_privileges_to_account_role.sysadmin_create_integration
+  ]
 }
 
 resource "snowflake_file_format_json" "cocosurf_json" {
   name     = "COCOSURF_JSON_FORMAT"
-  database = "COCOSURF_DB"
-  schema   = "RAW"
+  database = snowflake_database.cocosurf_db.name
+  schema   = snowflake_schema.raw.name
 }

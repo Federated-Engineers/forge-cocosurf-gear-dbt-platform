@@ -24,6 +24,7 @@ resource "aws_ecs_task_definition" "cocosurf_dbt" {
   memory                   = "1024"
 
   execution_role_arn = aws_iam_role.ecs_task_execution.arn
+  task_role_arn      = aws_iam_role.cocosurf_dbt_task.arn
 
   container_definitions = jsonencode([
     {
@@ -33,21 +34,11 @@ resource "aws_ecs_task_definition" "cocosurf_dbt" {
 
       environment = [
         { name = "SNOWFLAKE_ACCOUNT", value = var.snowflake_account_name },
+        { name = "SNOWFLAKE_USER", value = "COCOSURF_DBT_SVC" },
         { name = "SNOWFLAKE_ROLE", value = "DBT_ROLE" },
         { name = "SNOWFLAKE_DATABASE", value = "COCOSURF_DB" },
         { name = "SNOWFLAKE_WAREHOUSE", value = "COCOSURF_WH" },
         { name = "SNOWFLAKE_SCHEMA", value = "STAGING" }
-      ]
-
-      secrets = [
-        {
-          name      = "SNOWFLAKE_USER"
-          valueFrom = aws_ssm_parameter.snowflake_dbt_user.arn
-        },
-        {
-          name      = "SNOWFLAKE_PASSWORD"
-          valueFrom = aws_ssm_parameter.snowflake_dbt_user_password.arn
-        }
       ]
 
       logConfiguration = {
