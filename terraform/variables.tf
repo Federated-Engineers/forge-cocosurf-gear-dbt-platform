@@ -8,11 +8,6 @@ variable "snowflake_user" {
   default = "feyiarms"
 }
 
-# variable "snowflake_password" {
-#   type      = string
-#   sensitive = true
-# }
-
 variable "snowflake_organization_name" {
   type    = string
   default = "EWSTSAT"
