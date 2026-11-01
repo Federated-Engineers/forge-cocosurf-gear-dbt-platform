@@ -30,11 +30,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+
+      
+      # TEMPORARY: Inspect the actual GitHub OIDC claims
+      - name: Inspect GitHub OIDC claims
+        shell: bash
+        run: |
+          TOKEN=$(curl -sS \
+            -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" \
+            | jq -r '.value')
+
+          python -c "import sys,json,base64; t=sys.argv[1]; p=t.split('.')[1]; p += '=' * (-len(p) % 4); d=json.loads(base64.urlsafe_b64decode(p)); print(json.dumps({'sub':d.get('sub'),'aud':d.get('aud'),'repository':d.get('repository'),'ref':d.get('ref')},indent=2))" "$TOKEN"
+
+
       - name: Configure AWS credentials with OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
+
       
       - name: Verify AWS identity
         run: aws sts get-caller-identity
