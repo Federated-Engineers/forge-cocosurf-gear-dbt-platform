@@ -4,7 +4,7 @@ data "aws_iam_openid_connect_provider" "github_oidc" {
 }
 
 
-# GitHub Actions IAM Role
+# Cocosurf GitHub Actions IAM Role
 resource "aws_iam_role" "cocosurf_github_actions_role" {
   name = "cocosurf-github-actions-role"
 
@@ -23,12 +23,10 @@ resource "aws_iam_role" "cocosurf_github_actions_role" {
         Condition = {
           StringEquals = {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
-          }
 
-          StringLike = {
             "token.actions.githubusercontent.com:sub" = [
-              "repo:Federated-Engineers@242844222/forge-cocosurf-gear-dbt-platform*:ref:refs/heads/main",
-              "repo:Federated-Engineers@242844222/forge-cocosurf-gear-dbt-platform*:ref:refs/heads/cocosurf"
+              "repo:Federated-Engineers/forge-cocosurf-gear-dbt-platform:ref:refs/heads/main",
+              "repo:Federated-Engineers/forge-cocosurf-gear-dbt-platform:ref:refs/heads/cocosurf"
             ]
           }
         }
