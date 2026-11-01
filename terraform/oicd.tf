@@ -26,7 +26,10 @@ resource "aws_iam_role" "cocosurf_github_actions_role" {
           }
 
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:Federated-Engineers@242844222/forge-cocosurf-gear-dbt-platform*:ref:refs/heads/main"
+            "token.actions.githubusercontent.com:sub" = [
+              "repo:Federated-Engineers@242844222/forge-cocosurf-gear-dbt-platform*:ref:refs/heads/main",
+              "repo:Federated-Engineers@242844222/forge-cocosurf-gear-dbt-platform*:ref:refs/heads/cocosurf"
+            ]
           }
         }
       }
