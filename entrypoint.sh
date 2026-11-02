@@ -11,7 +11,8 @@ cocosurf:
       type: snowflake
       account: "$SNOWFLAKE_ACCOUNT"
       user: "$SNOWFLAKE_USER"
-      password: "$SNOWFLAKE_PASSWORD"
+      authenticator: WORKLOAD_IDENTITY
+      workload_identity_provider: AWS
       role: "$SNOWFLAKE_ROLE"
       database: "$SNOWFLAKE_DATABASE"
       warehouse: "$SNOWFLAKE_WAREHOUSE"
