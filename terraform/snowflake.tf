@@ -35,15 +35,33 @@ resource "snowflake_account_role" "analytics_role" {
   name     = "ANALYTICS_ROLE"
 }
 
+# resource "snowflake_legacy_service_user" "cocosurf_dbt_svc" {
+#   provider = snowflake.accountadmin
+
+#   name                           = "COCOSURF_DBT_SVC"
+#   password                       = var.snowflake_password
+#   default_role                   = snowflake_account_role.dbt_role.name
+#   default_warehouse              = snowflake_warehouse.cocosurf_wh.name
+#   default_namespace              = "${snowflake_database.cocosurf_db.name}.STAGING"
+#   default_secondary_roles_option = "NONE"
+# }
+
+
 resource "snowflake_legacy_service_user" "cocosurf_dbt_svc" {
   provider = snowflake.accountadmin
 
-  name                           = "COCOSURF_DBT_SVC"
-  password                       = var.snowflake_dbt_password
+  name = "COCOSURF_DBT_SVC"
+
   default_role                   = snowflake_account_role.dbt_role.name
   default_warehouse              = snowflake_warehouse.cocosurf_wh.name
   default_namespace              = "${snowflake_database.cocosurf_db.name}.STAGING"
   default_secondary_roles_option = "NONE"
+
+  default_workload_identity {
+    aws {
+      arn = aws_iam_role.cocosurf_dbt_task.arn
+    }
+  }
 }
 
 resource "snowflake_grant_account_role" "dbt_role_to_cocosurf_dbt_svc" {
